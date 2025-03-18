@@ -1,7 +1,8 @@
-# main.py
 from fastapi import FastAPI
-from controllers.course_controller import router as courses_router
-from database.db_init import initialize_database
+from src.controllers.course_controller import router as courses_router
+from src.database.db_init import initialize_database
+from src.errors.exception_handler import configure_exception_handlers
+
 
 app = FastAPI()
 
@@ -9,3 +10,7 @@ app = FastAPI()
 initialize_database()
 
 app.include_router(courses_router, prefix="/courses", tags=["courses"])
+
+
+# Register custom exception handlers
+configure_exception_handlers(app)
