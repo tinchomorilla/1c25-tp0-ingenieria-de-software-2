@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
 from src.repositories.course_repository import (
     db_create_course,
+    db_delete_course_by_id,
     db_get_courses,
     db_get_course_by_id,
 )
@@ -20,3 +21,6 @@ def get_all_courses(db: Session):
 # Service to get a course by ID
 def get_course_by_id_service(db: Session, course_id: int):
     return db_get_course_by_id(db=db, course_id=course_id)
+
+def delete_course_by_id_service(db: Session, course_id: int):
+    return db_delete_course_by_id(db=db, course_id=course_id)

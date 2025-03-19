@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from src.services.course_service import (
     create_new_course,
+    delete_course_by_id_service,
     get_all_courses,
     get_course_by_id_service,
 )
@@ -55,3 +56,22 @@ def get_course_by_id(course_id: int, db: Session = Depends(get_db)):
             headers={"X-Error": "Course Not Found"},
         )
     return course
+
+
+@router.delete(
+    "/{id}",
+    status_code=204,
+    responses={
+        204: {"description": "Course deleted successfully"},
+        404: {"description": "Course not found", "model": ErrorResponse},
+        500: {"description": "Internal server error", "model": ErrorResponse},
+    },
+)
+def delete_course_by_id(course_id: int, db: Session = Depends(get_db)):
+    course = delete_course_by_id_service(db=db, course_id=course_id)
+    if not course:
+        raise HTTPException(
+            status_code=404,
+            detail=f"The course with ID {course_id} was not found.",
+            headers={"X-Error": "Course Not Found"},
+        )
