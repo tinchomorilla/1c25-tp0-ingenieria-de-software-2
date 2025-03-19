@@ -3,6 +3,7 @@ from fastapi.responses import JSONResponse
 from src.schemas.error import ErrorResponse
 from fastapi import FastAPI
 
+
 def configure_exception_handlers(app: FastAPI):
     @app.exception_handler(HTTPException)
     async def http_error_handler(request: Request, exc: HTTPException):
@@ -12,6 +13,8 @@ def configure_exception_handlers(app: FastAPI):
             title=title,
             status=exc.status_code,
             detail=exc.detail,
-            instance=str(request.url)
+            instance=str(request.url),
         )
-        return JSONResponse(status_code=exc.status_code, content=error_response.model_dump())
+        return JSONResponse(
+            status_code=exc.status_code, content=error_response.model_dump()
+        )
