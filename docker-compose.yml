@@ -8,10 +8,14 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    env_file:
+      - .env
   db:
     extends:
       file: common-services.yml
       service: db
+    env_file:
+      - .env
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${DATABASE_USER} -d ${DATABASE_NAME}"]
       interval: 10s
