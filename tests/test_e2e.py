@@ -22,3 +22,8 @@ def test_get_courses():
     assert response.status_code == 200
     assert response.json() == [{"id": 1, "name": "Hola", "description": " GOD"}]
 
+def test_get_course_by_id():
+    response = client.get("/courses/1")
+    print(response.json())
+    assert response.status_code == 200
+    assert response.json() == {"id": 1, "name": "Hola", "description": " GOD"}
