@@ -47,12 +47,12 @@ def get_courses(db: Session = Depends(get_db)):
         500: {"description": "Internal server error", "model": ErrorResponse},
     },
 )
-def get_course_by_id(course_id: int, db: Session = Depends(get_db)):
-    course = get_course_by_id_service(db=db, course_id=course_id)
+def get_course_by_id(id: int, db: Session = Depends(get_db)):
+    course = get_course_by_id_service(db=db, course_id=id)
     if not course:
         raise HTTPException(
             status_code=404,
-            detail=f"The course with ID {course_id} was not found.",
+            detail=f"The course with ID {id} was not found.",
             headers={"X-Error": "Course Not Found"},
         )
     return course
@@ -67,11 +67,11 @@ def get_course_by_id(course_id: int, db: Session = Depends(get_db)):
         500: {"description": "Internal server error", "model": ErrorResponse},
     },
 )
-def delete_course_by_id(course_id: int, db: Session = Depends(get_db)):
-    course = delete_course_by_id_service(db=db, course_id=course_id)
+def delete_course_by_id(id: int, db: Session = Depends(get_db)):
+    course = delete_course_by_id_service(db=db, course_id=id)
     if not course:
         raise HTTPException(
             status_code=404,
-            detail=f"The course with ID {course_id} was not found.",
+            detail=f"The course with ID {id} was not found.",
             headers={"X-Error": "Course Not Found"},
         )
