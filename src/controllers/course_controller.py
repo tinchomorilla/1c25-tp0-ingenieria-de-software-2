@@ -8,7 +8,7 @@ from src.services.course_service import (
 )
 from src.schemas.course import CourseBase, Course
 from src.database.db import get_db
-from src.schemas.error import ErrorResponse
+from src.schemas.error_response import ErrorResponse
 
 router = APIRouter()
 
@@ -19,7 +19,7 @@ router = APIRouter()
     status_code=201,
     responses={
         201: {"description": "Course created successfully", "model": Course},
-        400: {"description": "Bad response error", "model": ErrorResponse},
+        400: {"description": "Bad request error", "model": ErrorResponse},
     },
 )
 def create_course(course: CourseBase, db: Session = Depends(get_db)):
