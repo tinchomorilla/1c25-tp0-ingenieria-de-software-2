@@ -4,7 +4,7 @@ from fastapi import FastAPI
 from src.controllers.course_controller import router as courses_router
 from src.database.db_init import initialize_database
 from src.errors.exception_handler import configure_exception_handlers
-from src.controllers.health import router as health_router
+from src.controllers.health_check import router as health_router
 
 
 app = FastAPI()
