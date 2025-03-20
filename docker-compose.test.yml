@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  web_test:
+    build: .
+    ports:
+      - "8001:8001"
+    depends_on:
+      db_test:
+        condition: service_healthy
+    env_file:
+      - .env.test
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://web_test:8001/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  db_test:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: test_user
+      POSTGRES_PASSWORD: test_password
+      POSTGRES_DB: test_database
+    ports:
+      - "5435:${INTERNAL_DATABASE_PORT}"
+    env_file:
+      - .env.test
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U test_user -d test_database"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    
+  test_runner:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    depends_on:
+      web_test:
+        condition: service_healthy
+      db_test:
+        condition: service_healthy
+    env_file:
+      - .env.test
