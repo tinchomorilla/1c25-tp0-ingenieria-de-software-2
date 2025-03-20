@@ -3,8 +3,6 @@ services:
     build: .
     ports:
       - "${PORT}:${PORT}"
-    env_file:
-      - .env
 
   db:
     image: postgres:latest
@@ -13,4 +11,4 @@ services:
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
       POSTGRES_DB: ${DATABASE_NAME}
     ports:
-      - "5434:${INTERNAL_DATABASE_PORT}"
+      - "${EXTERNAL_DATABASE_PORT}:${INTERNAL_DATABASE_PORT}"
