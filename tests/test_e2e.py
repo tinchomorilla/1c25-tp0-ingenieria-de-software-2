@@ -15,8 +15,10 @@ def test_create_course():
         },
     )
     assert response.status_code == 201
-    assert response.json() == {
-        "id": 1,
-        "name": "Hola",
-        "description": " GOD",
-    }
+    assert response.json() == {"id": 1, "name": "Hola", "description": " GOD"}
+
+def test_get_courses():
+    response = client.get("/courses/")
+    assert response.status_code == 200
+    assert response.json() == [{"id": 1, "name": "Hola", "description": " GOD"}]
+
