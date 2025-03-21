@@ -1,3 +1,4 @@
+import uuid
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from src.services.course_service import (
@@ -47,7 +48,7 @@ def get_courses(db: Session = Depends(get_db)):
         500: {"description": "Internal server error", "model": ErrorResponse},
     },
 )
-def get_course_by_id(id: int, db: Session = Depends(get_db)):
+def get_course_by_id(id: uuid.UUID, db: Session = Depends(get_db)):
     course = get_course_by_id_service(db=db, course_id=id)
     if not course:
         raise HTTPException(
@@ -67,7 +68,7 @@ def get_course_by_id(id: int, db: Session = Depends(get_db)):
         500: {"description": "Internal server error", "model": ErrorResponse},
     },
 )
-def delete_course_by_id(id: int, db: Session = Depends(get_db)):
+def delete_course_by_id(id: uuid.UUID, db: Session = Depends(get_db)):
     course = delete_course_by_id_service(db=db, course_id=id)
     if not course:
         raise HTTPException(

@@ -1,3 +1,4 @@
+import uuid
 from pydantic import BaseModel
 
 
@@ -8,7 +9,7 @@ class CourseBase(BaseModel):
 
 # Pydantic model for returning the course data with ID
 class Course(CourseBase):
-    id: int
+    id: uuid.UUID
 
     class Config:
         from_attributes = (

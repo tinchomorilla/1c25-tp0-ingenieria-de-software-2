@@ -1,3 +1,4 @@
+import uuid
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
 from src.models.course_model import Course as DBCourse
@@ -19,11 +20,11 @@ def db_get_courses(db: Session):
 
 
 # Get a course by ID
-def db_get_course_by_id(db: Session, course_id: int):
+def db_get_course_by_id(db: Session, course_id: uuid.UUID):
     return db.query(DBCourse).filter(DBCourse.id == course_id).first()
 
 # Delete a course by ID
-def db_delete_course_by_id(db: Session, course_id: int):
+def db_delete_course_by_id(db: Session, course_id: uuid.UUID):
     course = db.query(DBCourse).filter(DBCourse.id == course_id).first()
     if not course:
         return None
