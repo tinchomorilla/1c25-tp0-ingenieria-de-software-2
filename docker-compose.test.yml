@@ -9,7 +9,7 @@ services:
     env_file:
       - .env.test
     healthcheck:
-      test: ["CMD-SHELL", "curl -f http://web_test:8001/health || exit 1"]
+      test: ["CMD-SHELL", "curl -f http://web_test:${PORT}/health || exit 1"]
       interval: 10s
       timeout: 5s
       retries: 5
