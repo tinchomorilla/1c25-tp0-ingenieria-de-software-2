@@ -19,12 +19,15 @@ router = APIRouter()
     "/",
     status_code=201,
     responses={
-        201: {"description": "Course created successfully", "model": Course},
+        201: {"description": "Course created successfully", "model": CourseResponse},
         400: {"description": "Bad request error", "model": ErrorResponse},
     },
 )
 def create_course(course: CourseBase, db: Session = Depends(get_db)):
-    return create_new_course(db=db, course=course)
+
+    course = create_new_course(db=db, course=course)
+
+    return {"data": course}
 
 
 # Get all courses (GET request)
@@ -46,7 +49,7 @@ def get_courses(db: Session = Depends(get_db)):
 @router.get(
     "/{id}",
     responses={
-        200: {"description": "Course retrieved successfully", "model": Course},
+        200: {"description": "Course retrieved successfully", "model": CourseResponse},
         404: {"description": "Course not found", "model": ErrorResponse},
         500: {"description": "Internal server error", "model": ErrorResponse},
     },
@@ -59,7 +62,8 @@ def get_course_by_id(id: uuid.UUID, db: Session = Depends(get_db)):
             detail=f"The course with ID {id} was not found.",
             headers={"X-Error": "Course Not Found"},
         )
-    return course
+
+    return {"data": course}
 
 
 @router.delete(
