@@ -7,6 +7,7 @@
 - [Pre-requisitos](#pre-requisitos)
 - [Guía de Usuario para Testing](#guía-de-usuario-para-testing)
 - [Comandos Docker](#comandos-docker)
+- [Variables de entorno](#variables-de-entorno)
 
 ## Introducción
 
@@ -33,6 +34,38 @@ Para las pruebas, se utilizó la librería `pytest` junto con `TestClient` de Fa
 
 - **TestClient**: Es una herramienta proporcionada por FastAPI para realizar pruebas de integración y end-to-end. `TestClient` permite simular peticiones HTTP a la aplicación FastAPI y verificar las respuestas. Esto es útil para asegurarse de que los endpoints de la API funcionan correctamente y devuelven los resultados esperados. Más información en la [documentación de FastAPI sobre TestClient](https://fastapi.tiangolo.com/reference/testclient/?h=test).
 
+## Variables de entorno
+
+### Archivo .env
+
+```sh
+ENVIRONMENT=development
+HOST=0.0.0.0
+PORT=8000
+EXTERNAL_DATABASE_PORT=5434
+INTERNAL_DATABASE_PORT=5432
+DATABASE_HOST=db
+DATABASE_NAME=mydatabase
+DATABASE_USER=myuser
+DATABASE_PASSWORD=mypassword
+DATABASE_URL=postgresql://${DATABASE_USER}:${DATABASE_PASSWORD}@${DATABASE_HOST}:${INTERNAL_DATABASE_PORT}/${DATABASE_NAME}
+```
+
+### Archivo .env.test
+
+```sh
+ENVIRONMENT=test
+HOST=0.0.0.0
+PORT=8001
+EXTERNAL_DATABASE_PORT=5435
+INTERNAL_DATABASE_PORT=5432
+DATABASE_HOST=db_test
+DATABASE_NAME=test_database
+DATABASE_USER=test_user
+DATABASE_PASSWORD=test_password
+DATABASE_URL=postgresql://${DATABASE_USER}:${DATABASE_PASSWORD}@${DATABASE_HOST}:${INTERNAL_DATABASE_PORT}/${DATABASE_NAME}
+```
+
 ## Comandos Docker
 
 Desde la raiz del proyecto:
@@ -46,6 +79,7 @@ sudo docker-compose up --build
 ### Construir el ambiente de testing
 
 ```sh
-sudo docker-compose -f docker-compose.test.yml up --build
+sudo docker-compose --env-file .env.test -f docker-compose.test.yml up --build
 ```
+
 
