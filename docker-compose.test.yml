@@ -3,8 +3,6 @@ version: '3.8'
 services:
   web_test:
     build: .
-    ports:
-      - "8001:8001"
     depends_on:
       db_test:
         condition: service_healthy
@@ -18,10 +16,6 @@ services:
 
   db_test:
     image: postgres:latest
-    environment:
-      POSTGRES_USER: test_user
-      POSTGRES_PASSWORD: test_password
-      POSTGRES_DB: test_database
     ports:
       - "5435:${INTERNAL_DATABASE_PORT}"
     env_file:
