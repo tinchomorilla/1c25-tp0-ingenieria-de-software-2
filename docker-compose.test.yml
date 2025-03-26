@@ -17,7 +17,7 @@ services:
   db_test:
     image: postgres:latest
     ports:
-      - "5435:${INTERNAL_DATABASE_PORT}"
+    - "${EXTERNAL_DATABASE_PORT}:${INTERNAL_DATABASE_PORT}"
     env_file:
       - .env.test
     healthcheck:
