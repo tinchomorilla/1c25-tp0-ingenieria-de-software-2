@@ -1,3 +1,4 @@
+from typing import List
 import uuid
 from pydantic import BaseModel
 
@@ -15,3 +16,6 @@ class Course(CourseBase):
         from_attributes = (
             True  # Tells Pydantic to treat the SQLAlchemy model as a dictionary
         )
+
+class CourseResponse(BaseModel):
+    data: List[Course]
