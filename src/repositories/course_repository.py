@@ -7,7 +7,7 @@ from src.schemas.course import CourseBase
 
 # Create a course in the database
 def db_create_course(db: Session, course: CourseBase):
-    db_course = DBCourse(name=course.name, description=course.description)
+    db_course = DBCourse(title=course.title, description=course.description)
     db.add(db_course)
     db.commit()
     db.refresh(db_course)
