@@ -6,8 +6,8 @@
 - [Desafíos del Proyecto](#desafíos-del-proyecto)
 - [Pre-requisitos](#pre-requisitos)
 - [Guía de Usuario para Testing](#guía-de-usuario-para-testing)
-- [Comandos Docker](#comandos-docker)
 - [Variables de entorno](#variables-de-entorno)
+- [Comandos Docker](#comandos-docker)
 
 ## Introducción
 
@@ -35,6 +35,8 @@ Para las pruebas, se utilizó la librería `pytest` junto con `TestClient` de Fa
 - **TestClient**: Es una herramienta proporcionada por FastAPI para realizar pruebas de integración y end-to-end. `TestClient` permite simular peticiones HTTP a la aplicación FastAPI y verificar las respuestas. Esto es útil para asegurarse de que los endpoints de la API funcionan correctamente y devuelven los resultados esperados. Más información en la [documentación de FastAPI sobre TestClient](https://fastapi.tiangolo.com/reference/testclient/?h=test).
 
 ## Variables de entorno
+
+Crear estos archivos en el root del proyecto:
 
 ### Archivo .env
 
