@@ -7,7 +7,7 @@ from src.services.course_service import (
     get_all_courses,
     get_course_by_id_service,
 )
-from src.schemas.course import CourseBase, Course, CourseResponse
+from src.schemas.course import CourseBase, Course, CourseResponse, CoursesResponse
 from src.database.db import get_db
 from src.schemas.error_response import ErrorResponse
 
@@ -33,9 +33,9 @@ def create_course(course: CourseBase, db: Session = Depends(get_db)):
 # Get all courses (GET request)
 @router.get(
     "/",
-    response_model=CourseResponse,
+    response_model=CoursesResponse,
     responses={
-        200: {"description": "A list of courses", "model": CourseResponse},
+        200: {"description": "A list of courses", "model": CoursesResponse},
     },
 )
 def get_courses(db: Session = Depends(get_db)):

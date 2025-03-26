@@ -4,7 +4,7 @@ from pydantic import BaseModel
 
 
 class CourseBase(BaseModel):
-    name: str
+    title: str
     description: str
 
 
@@ -17,5 +17,8 @@ class Course(CourseBase):
             True  # Tells Pydantic to treat the SQLAlchemy model as a dictionary
         )
 
-class CourseResponse(BaseModel):
+class CoursesResponse(BaseModel):
     data: List[Course]
+
+class CourseResponse(BaseModel):
+    data: Course
